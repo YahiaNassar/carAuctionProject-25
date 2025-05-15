@@ -28,12 +28,16 @@ public class Car {
     @NotNull
     private long price;
     @NotNull
-    private String image;
+    @ElementCollection
+    private List<String> image;
     @NotNull
     private String mileage;
     @NotNull
     @ColumnDefault("1")
     private CarStatus carStatus;
+
+    @NotNull
+    private String description;
 
 
     @ManyToOne

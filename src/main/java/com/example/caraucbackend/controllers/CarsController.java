@@ -64,10 +64,10 @@ public class CarsController {
         return carServices.addCar(car);
     }
 
-
-    @PostMapping("/delete/{vin}/{username}/{password}")
+    //http://127.0.0.1:8080/cars/delete/001/Marks/1234
+    @DeleteMapping("/delete/{vin}/{username}/{password}")
     @ResponseBody
-    private GeneralResponse addCar(@PathVariable String vin,
+    private GeneralResponse deleteACar(@PathVariable String vin,
                                    @PathVariable String username,
                                    @PathVariable String password){
         if(!userServices.usernameAndPasswordChecker(username, password)){

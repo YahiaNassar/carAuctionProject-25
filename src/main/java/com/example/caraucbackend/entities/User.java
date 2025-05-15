@@ -23,6 +23,8 @@ public class User {
     @NotNull
     private String password;
     @NotNull
+    private String email;
+    @NotNull
     private char isAdmin;
     @ColumnDefault("'N'")
     private char isBlocked;

@@ -5,6 +5,7 @@ import com.example.caraucbackend.entities.CarStatus;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Data
@@ -25,13 +26,15 @@ public class NewCarRequest {
     @NotNull
     private long price;
     @NotNull
-    private String image;
+    private List<String> image;
     @NotNull
     private String mileage;
     @NotNull
     private CarStatus carStatus;
     @NotNull
     private String listerUsername;
+    @NotNull
+    private String description;
 
 
 }

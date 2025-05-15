@@ -87,6 +87,7 @@ public class CarServices {
                 car.getImage(),
                 car.getMileage(),
                 car.getCarStatus(),
+                car.getDescription(),
                 user,
                 new ArrayList<>()
         ));

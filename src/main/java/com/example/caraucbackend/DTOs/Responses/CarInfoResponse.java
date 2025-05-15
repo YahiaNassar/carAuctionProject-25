@@ -34,6 +34,8 @@ public class CarInfoResponse {
     private String mileage;
     @NotNull
     private User lister;
+    @NotNull
+    private String description;
 
     @OneToMany
     private List<Bid> bidHistory;

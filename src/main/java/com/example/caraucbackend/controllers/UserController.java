@@ -39,7 +39,7 @@ public class UserController {
 
     @PostMapping("/block/{userId}/{username}/{password}")
     @ResponseBody
-    private GeneralResponse addCar(@PathVariable String userId,
+    private GeneralResponse blockUser(@PathVariable String userId,
                                    @PathVariable String username,
                                    @PathVariable String password){
         if(!userServices.usernameAndPasswordChecker(username, password)){
@@ -52,6 +52,31 @@ public class UserController {
             );
         }
         return userServices.blockUser(userId);
+    }
+
+    @PostMapping("/allUsers/{username}/{password}")
+    @ResponseBody
+    private GeneralResponse getAll(
+                                      @PathVariable String username,
+                                      @PathVariable String password){
+        if(!userServices.usernameAndPasswordChecker(username, password)){
+            if(userServices.getUserByUserName(username).getIsAdmin()=='N'){
+                return new GeneralResponse(
+                        HttpStatus.UNAUTHORIZED,
+                        "Wrong Security Credentials",
+                        LocalDate.now(),
+                        LocalTime.now(),
+                        new GeneralResponseBody(null)
+                );
+            }
+        }
+        return new GeneralResponse(
+                HttpStatus.OK,
+                "All Users Retrieved!",
+                LocalDate.now(),
+                LocalTime.now(),
+                new GeneralResponseBody(userServices.getAll())
+        );
     }
 
 }
