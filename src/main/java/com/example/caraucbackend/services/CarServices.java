@@ -8,6 +8,7 @@ import com.example.caraucbackend.entities.CarStatus;
 import com.example.caraucbackend.entities.User;
 import com.example.caraucbackend.repos.CarRepo;
 import com.example.caraucbackend.entities.Car;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -158,21 +159,21 @@ public class CarServices {
 
     }
 
-
+    @Transactional
     public GeneralResponse deleteACar(String vin, String username){
 
         Car car = carRepo.findCarByVinIs(vin);
 
-        if(car != null && car.getLister().getUsername().equals(username)){
+        if(car != null && userServices.getUserByUserName(username).getIsAdmin() == 'Y' ){
 
-            car.setCarStatus(CarStatus.SOLD);
+            carRepo.deleteCarByVinIs(car.getVin());
 
             return new GeneralResponse(
                     HttpStatus.ACCEPTED,
-                    "car marked as sold successfully",
+                    "car removed successfully",
                     LocalDate.now(),
                     LocalTime.now(),
-                    new GeneralResponseBody<>(carRepo.deleteCarByVinIs(car.getVin()))
+                    new GeneralResponseBody<>("deleted")
             );
         }
         else {
